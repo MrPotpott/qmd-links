@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quien Me Debe</title>
+<style>
+  body { margin:0; font-family: Arial, sans-serif; background:#0b1f3a; color:#fff;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; }
+  .box { max-width:360px; padding:24px; }
+  h1 { font-size:22px; margin:0 0 8px; }
+  p { color:#c9d4e5; line-height:1.4; }
+  a.btn { display:block; background:#1fa971; color:#fff; text-decoration:none; font-weight:bold;
+          padding:16px; border-radius:12px; margin:20px 0 12px; font-size:18px; }
+  small { color:#8fa3c0; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Quien Me Debe</h1>
+  <p id="msg">Opening the app... / Abriendo la aplicacion...</p>
+  <a class="btn" id="open" href="#">Open the app / Abrir la app</a>
+  <small>If nothing happens, make sure the app is installed, then tap the button.<br>
+  Si no pasa nada, verifica que la app este instalada y toca el boton.</small>
+</div>
+<script>
+  var params = new URLSearchParams(window.location.search);
+  var token = params.get('token');
+  var btn = document.getElementById('open');
+  if (!token) {
+    document.getElementById('msg').textContent = 'This invitation link is incomplete. Ask your lender to send it again.';
+    btn.style.display = 'none';
+  } else {
+    var target = 'quienmedebe://accept-invitation?token=' + encodeURIComponent(token);
+    btn.setAttribute('href', target);
+    setTimeout(function () { window.location.href = target; }, 400);
+  }
+</script>
+</body>
+</html>
